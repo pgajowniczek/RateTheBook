@@ -9,5 +9,4 @@ var book = new BookInMemory("asdf", "asdfasdfasdf", 345);
 book.AddRates(5.0);
 book.AddRates(10.0);
 book.AddRates(45.0);
-book.AddRates(15.0);
 book.ShowStatistics();
