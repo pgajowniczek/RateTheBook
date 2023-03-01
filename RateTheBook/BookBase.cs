@@ -29,5 +29,7 @@ namespace RateTheBook
             Console.WriteLine($"Lowest: {statistics.LowestRating}");
             Console.WriteLine($"Average: {statistics.AverageRating}");
         }
+
+        
     }
 }
