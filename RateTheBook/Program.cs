@@ -1,22 +1,22 @@
 ﻿using RateTheBook;
 
 //testy @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-var test = new Reading("asd", "asd", 1);
-var test2 = new Reading("asd", "asd", 1);
-Console.WriteLine(test.Id);
-Console.WriteLine(test2.Id);
+//var test = new Reading("asd", "asd", 1);
+//var test2 = new Reading("asd", "asd", 1);
+//Console.WriteLine(test.Id);
+//Console.WriteLine(test2.Id);
 
-var book = new BookInMemory("asdf", "asdfasdfasdf", 345);
-var book2 = new BookInMemory("assdfsdfgsdfgsdgfdf", "asdsdfgsdfgsdgffasdfasdf", 34534);
+//var book = new BookInMemory("asdf", "asdfasdfasdf", 345);
+//var book2 = new BookInMemory("assdfsdfgsdfgsdgfdf", "asdsdfgsdfgsdgffasdfasdf", 34534);
 
-book.AddRatings(5.0);
-book.AddRatings(10.0);
-book.AddRatings(45.0);
-book.ShowStatistics();
-BookInMemory.ShowListOfBooks();
-var testID = 3;
-var objectWithID3 = BookInMemory.ReturnSpecificBookObject(testID);
-objectWithID3.ShowStatistics();
+//book.AddRatings(5.0);
+//book.AddRatings(10.0);
+//book.AddRatings(45.0);
+//book.ShowStatistics();
+//BookInMemory.ShowListOfBooks();
+//var testID = 3;
+//var objectWithID3 = BookInMemory.ReturnSpecificBookObject(testID);
+//objectWithID3.ShowStatistics();
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 var isProgramWorking = true;
