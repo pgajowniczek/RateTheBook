@@ -2,29 +2,29 @@
 {
     internal class BookInMemory : BookBase
     {
-        private List<double> rates;
+        private List<double> ratings;
         static List<BookInMemory> allBooks = new List<BookInMemory>();
         
         public BookInMemory(string title, string authorName, int numberOfPages) : base(title, authorName, numberOfPages)
         {
-            rates = new List<double>();
+            ratings = new List<double>();
             allBooks.Add(this);
         }
 
         public override string Title { get; set; }
         public override string AuthorName { get; set;}
         public override int NumberOfPages { get; set; }
-        public override void AddRates (double rate)
+        public override void AddRatings (double rating)
         {
-            rates.Add(rate);
+            ratings.Add(rating);
         }
 
         public override Statistics GetStatistics()
         {
             var result = new Statistics();
-            foreach (var rate in rates) 
+            foreach (var rating in ratings) 
             {
-                result.AddNewStatistics(rate);
+                result.AddNewStatistics(rating);
             }
             return result;
         }

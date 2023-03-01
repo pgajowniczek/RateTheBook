@@ -13,7 +13,7 @@ namespace RateTheBook
         int NumberOfPages { get; }
         int Id { get; }
 
-        void AddRates(double rate);
+        void AddRatings(double rate);
 
         Statistics GetStatistics();
 

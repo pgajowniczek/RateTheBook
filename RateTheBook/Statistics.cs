@@ -6,15 +6,15 @@
         public double LowestRating;
         public int Count;
         public double RatingSum;
-        //public double ReadingTimeSum;
+        public bool WasAdded;
 
         public Statistics()
         {
             HighestRating= double.MinValue;
             LowestRating= double.MaxValue;
             RatingSum = 0;
-            //ReadingTimeSum = 0;
             Count = 0;
+            WasAdded= false;
         }
 
         public double AverageRating
@@ -24,21 +24,14 @@
                 return RatingSum / Count;
             }
         }
-        //public double AverageReadingTime
-        //{
-        //    get
-        //    {
-        //        return ReadingTimeSum / Count;
-        //    }
-        //}
 
-        public void AddNewStatistics(double rate)
+        public void AddNewStatistics(double rating)
         {
             Count += 1;
-            LowestRating = Math.Min(rate, LowestRating);
-            HighestRating = Math.Max(rate, HighestRating);
-            RatingSum += rate;
-            //ReadingTimeSum += time;
+            LowestRating = Math.Min(rating, LowestRating);
+            HighestRating = Math.Max(rating, HighestRating);
+            RatingSum += rating;
+            WasAdded= true;
         }
 
     }

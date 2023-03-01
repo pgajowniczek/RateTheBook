@@ -18,7 +18,7 @@ namespace RateTheBook
 
         }
 
-        public abstract void AddRates(double rate);
+        public abstract void AddRatings(double rate);
 
         public abstract Statistics GetStatistics();
 
@@ -26,9 +26,17 @@ namespace RateTheBook
         {
             ShowBookDetails();
             var statistics = GetStatistics();
-            Console.WriteLine($"Highest: {statistics.HighestRating}");
-            Console.WriteLine($"Lowest: {statistics.LowestRating}");
-            Console.WriteLine($"Average: {statistics.AverageRating}");
+            if (statistics.WasAdded)
+            {
+                Console.WriteLine($"Highest: {statistics.HighestRating}");
+                Console.WriteLine($"Lowest: {statistics.LowestRating}");
+                Console.WriteLine($"Average: {statistics.AverageRating}");
+            }
+            else
+            {
+                Console.WriteLine("Unfortunately there is no statistics yet, please provide your ratings first!");
+            }
+            
         }
         public void ShowBookDetails()
         {
