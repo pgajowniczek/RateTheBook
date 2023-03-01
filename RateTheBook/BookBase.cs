@@ -24,10 +24,15 @@ namespace RateTheBook
 
         public void ShowStatistics()
         {
+            ShowBookDetails();
             var statistics = GetStatistics();
             Console.WriteLine($"Highest: {statistics.HighestRating}");
             Console.WriteLine($"Lowest: {statistics.LowestRating}");
             Console.WriteLine($"Average: {statistics.AverageRating}");
+        }
+        public void ShowBookDetails()
+        {
+            Console.WriteLine($"ID: {this.Id}, Title: {this.Title}, Author: {this.AuthorName}, Number of pages: {this.NumberOfPages}");
         }
 
         

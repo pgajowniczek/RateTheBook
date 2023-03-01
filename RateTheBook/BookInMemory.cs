@@ -33,8 +33,16 @@
         {
             foreach (var book in allBooks)
             {
-                Console.WriteLine($"Title: {book.Title}, Author: {book.AuthorName}, Number of pages: {book.NumberOfPages}");
+                book.ShowBookDetails();
             }
         }
+
+        public static BookInMemory ReturnSpecificBookObject(int providedId)
+        {
+            List<BookInMemory> test = allBooks.Where(x => x.Id == providedId).ToList();
+            return test[0];
+        }
+
+        
     }
 }
