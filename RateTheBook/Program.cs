@@ -37,7 +37,16 @@ while (isProgramWorking)
                 {
                     case "1":
                         ClearConsole();
-                        AddBookInMemory();
+                        try
+                        {
+                            AddBookInMemory();
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+                        
                         break;
                     case "2":
                         ClearConsole();
@@ -67,6 +76,7 @@ while (isProgramWorking)
                         isProgramWorking = false;
                         break;
                     default:
+                        Console.WriteLine("Invalid value. Please try again");
                         break;
                 }
             }
@@ -81,6 +91,7 @@ while (isProgramWorking)
                     AddBookInFile();
                     break;
                 default:
+                    Console.WriteLine("Invalid value. Please try again");
                     break;
             }
             break;
@@ -89,6 +100,7 @@ while (isProgramWorking)
             isProgramWorking = false;
             break;
         default:
+            Console.WriteLine("Invalid value. Please try again");
             break;
     }
 }
