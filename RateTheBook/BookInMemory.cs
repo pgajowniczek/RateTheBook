@@ -40,7 +40,14 @@
         public static BookInMemory ReturnSpecificBookObject(int providedId)
         {
             List<BookInMemory> test = allBooks.Where(x => x.Id == providedId).ToList();
-            return test[0];
+            if (test.Count < 1)
+            {
+                throw new Exception("Provided ID value is incorrect");
+            }
+            else
+            {
+                return test[0];
+            }
         }
 
         

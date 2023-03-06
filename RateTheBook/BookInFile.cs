@@ -30,7 +30,18 @@ namespace RateTheBook
 
         public override Statistics GetStatistics() 
         {
-            throw new NotImplementedException();
+            var result = new Statistics();
+            using (var reader = File.OpenText(this.fullFileName))
+            {
+                var line = reader.ReadLine();
+                while (line != null) 
+                {
+                    var number = double.Parse(line);
+                    result.AddNewStatistics(number);
+                    line = reader.ReadLine();
+                }
+            }
+            return result;
         }
     }
 }

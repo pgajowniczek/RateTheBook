@@ -1,23 +1,5 @@
 ﻿using RateTheBook;
-
-//testy @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//var test = new Reading("asd", "asd", 1);
-//var test2 = new Reading("asd", "asd", 1);
-//Console.WriteLine(test.Id);
-//Console.WriteLine(test2.Id);
-
-//var book = new BookInMemory("asdf", "asdfasdfasdf", 345);
-//var book2 = new BookInMemory("assdfsdfgsdfgsdgfdf", "asdsdfgsdfgsdgffasdfasdf", 34534);
-
-//book.AddRatings(5.0);
-//book.AddRatings(10.0);
-//book.AddRatings(45.0);
-//book.ShowStatistics();
-//BookInMemory.ShowListOfBooks();
-//var testID = 3;
-//var objectWithID3 = BookInMemory.ReturnSpecificBookObject(testID);
-//objectWithID3.ShowStatistics();
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+using System;
 
 var isProgramWorking = true;
 while (isProgramWorking)
@@ -41,25 +23,44 @@ while (isProgramWorking)
                         {
                             AddBookInMemory();
                         }
-                        catch (Exception)
+                        catch (Exception exception)
                         {
 
-                            throw;
+                            Console.WriteLine($"Exception catched: {exception.Message}");
+                            GetValueFromUser("\nPress any key to continue");
                         }
-                        
                         break;
                     case "2":
                         ClearConsole();
                         BookInMemory.ShowListOfBooks();
                         Console.WriteLine();
-                        AddRaitingsToTheSpecificBook();
+                        try
+                        {
+
+                            AddRaitingsToTheSpecificBook();
+                        }
+                        catch (Exception exception)
+                        {
+
+                            Console.WriteLine($"Exception catched: {exception.Message}");
+                            GetValueFromUser("\nPress any key to continue");
+                        }
                         GetValueFromUser("\nPress any key to continue");
                         break;
                     case "3":
                         ClearConsole();
                         BookInMemory.ShowListOfBooks();
                         Console.WriteLine();
-                        ShowSpecificBookInMemoryStatistics();
+                        try
+                        {
+                            ShowSpecificBookInMemoryStatistics();
+                        }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine($"Exception catched: {exception.Message}");
+                            GetValueFromUser("\nPress any key to continue");
+                        }
+                        
                         GetValueFromUser("\nPress any key to continue");
                         break;
                     case "4":
@@ -76,7 +77,8 @@ while (isProgramWorking)
                         isProgramWorking = false;
                         break;
                     default:
-                        Console.WriteLine("Invalid value. Please try again");
+                        Console.WriteLine("Invalid value. Please try again when this text will disapear");
+                        Thread.Sleep(1500);
                         break;
                 }
             }
@@ -88,10 +90,20 @@ while (isProgramWorking)
             {
                 case "1":
                     ClearConsole();
-                    AddBookInFile();
+                    try
+                    {
+                        AddBookInFile();
+                    }
+                    catch (Exception exception)
+                    {
+
+                        Console.WriteLine($"Exception catched: {exception.Message}");
+                        GetValueFromUser("\nPress any key to continue");
+                    }
                     break;
                 default:
-                    Console.WriteLine("Invalid value. Please try again");
+                    Console.WriteLine("Invalid value. Please try again when this text will disapear");
+                    Thread.Sleep(1500);
                     break;
             }
             break;
@@ -100,7 +112,8 @@ while (isProgramWorking)
             isProgramWorking = false;
             break;
         default:
-            Console.WriteLine("Invalid value. Please try again");
+            Console.WriteLine("Invalid value. Please try again when this text will disapear");
+            Thread.Sleep(1500);
             break;
     }
 }
@@ -116,33 +129,73 @@ static void AddBookInMemory()
 {
     var title = GetValueFromUser("Please provide book title: ");
     var author = GetValueFromUser("Please provide book Author: ");
-    int pageNumber = int.Parse(GetValueFromUser("Please provide number of pages"));
+    var pageNumberString = GetValueFromUser("Please provide number of pages");
     ClearConsole();
-    var book = new BookInMemory(title, author, pageNumber);
-    Console.WriteLine("Book successfully added!\n\nCurrent list of books:\n");
-    BookInMemory.ShowListOfBooks();
-    GetValueFromUser("\nPress any key to continue");
+    if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
+    {
+        if (int.TryParse(pageNumberString, out int pageNumber))
+        {
+            var book = new BookInMemory(title, author, pageNumber);
+            Console.WriteLine("Book successfully added!\n\nCurrent list of books:\n");
+            BookInMemory.ShowListOfBooks();
+        }
+        else 
+        {
+            throw new Exception("Please provide page number as intiger");
+        }
+    }
+    else
+    {
+        throw new Exception("Provided book title or author name can not be empty");
+    }
 }
 
 static void AddBookInFile()
 {
     var title = GetValueFromUser("Please provide book title: ");
     var author = GetValueFromUser("Please provide book Author: ");
-    int pageNumber = int.Parse(GetValueFromUser("Please provide number of pages"));
+    var pageNumberString = GetValueFromUser("Please provide number of pages");
     ClearConsole();
-    var book = new BookInFile(title, author, pageNumber);
-    Console.WriteLine("Book successfully added!\n");
-    while (true)
+    if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
     {
-        var userInput = GetValueFromUser("Please provide raiting for this book: ");
-        if (userInput == "q" || userInput == "Q")
+        if (int.TryParse(pageNumberString, out int pageNumber))
         {
-            break;
+            var book = new BookInFile(title, author, pageNumber);
+            Console.WriteLine("Book successfully added!");
+
+            while (true)
+            {
+                var userInput = GetValueFromUser("Please provide raiting for this book: ");
+                if (userInput == "q" || userInput == "Q")
+                {
+                    break;
+                }
+                else if (double.TryParse(userInput, out double raiting))
+                {
+                    book.AddRatings(raiting);
+                    Console.WriteLine("To leave and show book raitings press 'q'.\n");
+                }
+                else
+                {
+                    throw new Exception("Incorrect value provided. Please try again");
+                }
+                
+            }
+            book.GetStatistics();
+            book.ShowStatistics();
+            GetValueFromUser("\nPress any key to continue");
         }
-        double raiting = double.Parse(userInput);
-        book.AddRatings(raiting);
-        Console.WriteLine("To leave and show book raitings press 'q'.\n");
+        else
+        {
+            throw new Exception("Please provide page number as intiger");
+        }
     }
+    else
+    {
+        throw new Exception("Provided book title or author name can not be empty");
+    }
+
+    
     
 }
 
@@ -152,17 +205,52 @@ static void ShowSpecificBookInMemoryStatistics()
 {
     int providedId = int.Parse(GetValueFromUser("Please provide Id of the book, whose statistics you want to check"));
     ClearConsole();
-    var objectWithProvidedId = BookInMemory.ReturnSpecificBookObject(providedId);
-    objectWithProvidedId.ShowStatistics();
+    try
+    {
+        var objectWithProvidedId = BookInMemory.ReturnSpecificBookObject(providedId);
+        objectWithProvidedId.ShowStatistics();
+    }
+    catch (Exception exception)
+    {
+
+        Console.WriteLine($"Exception catched: {exception.Message}");
+    }
+    
 }
 
 static void AddRaitingsToTheSpecificBook()
 {
-    int providedId = int.Parse(GetValueFromUser("Please provide Id of the book, whose statistics you want to add"));
-    ClearConsole();
-    var objectWithProvidedId = BookInMemory.ReturnSpecificBookObject(providedId);
-    double rating = double.Parse(GetValueFromUser("Please provide the raiting "));
-    objectWithProvidedId.AddRatings(rating);
+    var providedStringId = GetValueFromUser("Please provide Id of the book, whose statistics you want to add");
+    if (int.TryParse(providedStringId, out int providedId))
+    {
+        ClearConsole();
+        try
+        {
+            var objectWithProvidedId = BookInMemory.ReturnSpecificBookObject(providedId);
+
+            var userRating = GetValueFromUser("Please provide the raiting ");
+            if (double.TryParse(userRating, out double rating))
+            {
+                objectWithProvidedId.AddRatings(rating);
+            }
+            else
+            {
+                throw new Exception("Provided value is incorrect");
+            }
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Exception catched: {exception.Message}");
+        }
+    }
+    else
+    {
+        throw new Exception("Please provide integer value");
+    }
+    
+    
+    
+    
 }
 
 static void ClearConsole()
