@@ -17,6 +17,7 @@
         public override void AddRatings (double rating)
         {
             ratings.Add(rating);
+            base.AddRatings(rating);
         }
 
         public override Statistics GetStatistics()

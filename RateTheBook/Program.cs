@@ -2,6 +2,7 @@
 using System;
 
 var isProgramWorking = true;
+
 while (isProgramWorking)
 {
     ClearConsole();

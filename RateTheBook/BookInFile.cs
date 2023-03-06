@@ -25,7 +25,8 @@ namespace RateTheBook
             using (var writer = File.AppendText($"{fullFileName}"))
             {
                 writer.WriteLine(rating);
-            }    
+            }
+            base.AddRatings(rating);
         }
 
         public override Statistics GetStatistics() 

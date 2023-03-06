@@ -13,12 +13,50 @@ namespace RateTheBook
 
         public override int NumberOfPages { get; set; }
 
+        public delegate void BookAddedDelegate(object sender, EventArgs args);
+
+        public event BookAddedDelegate BookAdded;
+
+        private const string logPath = "Logs.txt";
+
+        public delegate void RatingAddedDelegate(object sender, EventArgs args);
+
+        public event RatingAddedDelegate RatingAdded;
+        
+
         public BookBase(string title, string authorName, int numberOfPages): base(title, authorName, numberOfPages)
         {
-
+            this.BookAdded += BookBase_BookAdded;
+            if (BookAdded != null)
+            {
+                BookAdded(this, new EventArgs());
+            }
+            this.RatingAdded += BookBase_RatingAdded;
         }
 
-        public abstract void AddRatings(double rate);
+        private void BookBase_BookAdded(object sender, EventArgs args)
+        {
+            using (var writer = File.AppendText($"{logPath}"))
+            {
+                writer.WriteLine($"{DateTime.Now} - New book added: {this.Title}, {this.AuthorName}, {this.NumberOfPages}");
+            }
+        }
+        
+        public virtual void AddRatings(double rate)
+        {            
+            if(RatingAdded != null)
+            {
+                RatingAdded(this, new EventArgs());
+            }
+        }
+
+        private void BookBase_RatingAdded(object sender, EventArgs args)
+        {
+            using (var writer = File.AppendText($"{logPath}"))
+            {
+                writer.WriteLine($"{DateTime.Now} - New rating added into \"{this.Title}\"");
+            }
+        }
 
         public abstract Statistics GetStatistics();
 
@@ -42,7 +80,7 @@ namespace RateTheBook
         {
             Console.WriteLine($"ID: {this.Id}, Title: {this.Title}, Author: {this.AuthorName}, Number of pages: {this.NumberOfPages}");
         }
-
+        
         
     }
 }
