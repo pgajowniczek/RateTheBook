@@ -1,6 +1,6 @@
 ﻿namespace RateTheBook
 {
-    internal class BookInMemory : BookBase
+    public class BookInMemory : BookBase
     {
         private List<double> ratings;
         static List<BookInMemory> allBooks = new List<BookInMemory>();

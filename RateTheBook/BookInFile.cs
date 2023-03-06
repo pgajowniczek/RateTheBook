@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RateTheBook
 {
-    internal class BookInFile : BookBase
+    public class BookInFile : BookBase
     {
         private const string fileName = "_ratings.txt";
         private string fullFileName;
